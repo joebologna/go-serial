@@ -269,10 +269,11 @@ func nativeOpen(portName string, mode *Mode) (*unixPort, error) {
 
 	// MacOSX require that this operation is the last one otherwise an
 	// 'Invalid serial port' error is returned... don't know why...
-	if port.SetMode(mode) != nil {
-		port.Close()
-		return nil, &PortError{code: InvalidSerialPort}
-	}
+	port.SetMode(mode)
+	// if port.SetMode(mode) != nil {
+	// 	port.Close()
+	// 	return nil, &PortError{code: InvalidSerialPort}
+	// }
 
 	unix.SetNonblock(h, false)
 
